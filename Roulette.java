@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Roulette {
 
     private int[] straightUp, street, corner, topLine, doubleStreet, firstColumn, secondColumn, thirdColumn, firstDozen, secondDozen, thirdDozen, odd, even, red, black, oneToEighteen, nineteenToThirtysix;
@@ -26,5 +28,18 @@ public class Roulette {
 
     }
 
+    public int spin() {
+        Random r = new Random();
+        int num = 0;
+
+        num = r.nextInt(0, 36);
+        return num;
+        
+    }
+
+    public static void main(String[] args) {
+        Roulette roulette = new Roulette();
+        System.out.println(roulette.spin());
+    }
 
 }
