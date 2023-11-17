@@ -5,8 +5,10 @@ import java.util.Random;
 public class Roulette {
 
     private int[] straightUp, street, corner, topLine, doubleStreet, firstColumn, secondColumn, thirdColumn, firstDozen, secondDozen, thirdDozen, odd, even, red, black, oneToEighteen, nineteenToThirtysix;
-    private ArrayList<Integer> oddList, evenList, redList, blackList, oneToEighteenList, nineteenToThirtysixList, zeroList;
+    private ArrayList<Integer> oddList, evenList, redList, blackList, oneToEighteenList, nineteenToThirtysixList, zeroList, streakList;
     private HashSet<Integer> oddSet, evenSet, redSet, blackSet, oneToEighteenSet, nineteenToThirtysixSet;
+    private int currentStreakCount;
+    private String lastColour;
 
     public Roulette() {
 
@@ -35,6 +37,7 @@ public class Roulette {
         oneToEighteenList = new ArrayList<>();
         nineteenToThirtysixList = new ArrayList<>();
         zeroList = new ArrayList<>();
+        streakList = new ArrayList<>();
 
         oddSet = new HashSet<>();
         evenSet = new HashSet<>();
@@ -42,6 +45,9 @@ public class Roulette {
         blackSet = new HashSet<>();
         oneToEighteenSet = new HashSet<>();
         nineteenToThirtysixSet = new HashSet<>();
+
+        currentStreakCount = 0;
+        lastColour = "";
 
         for (int i : odd) {
             oddSet.add(i);
@@ -80,33 +86,40 @@ public class Roulette {
 
     public void result() {
         int num = spin();
+        String currentColour = "";
 
         if (oddSet.contains(num)) {
             oddList.add(num);
-        }
-
-        if (evenSet.contains(num)) {
+        } else if (evenSet.contains(num)) {
             evenList.add(num);
         }
 
         if (redSet.contains(num)) {
             redList.add(num);
-        }
-
-        if (blackSet.contains(num)) {
+            currentColour = "red";
+        } else if (blackSet.contains(num)) {
             blackList.add(num);
+            currentColour = "black";
         }
 
         if (oneToEighteenSet.contains(num)) {
             oneToEighteenList.add(num);
-        }
-
-        if (nineteenToThirtysixSet.contains(num)) {
+        } else if (nineteenToThirtysixSet.contains(num)) {
             nineteenToThirtysixList.add(num);
         }
 
         if (num == 0) {
             zeroList.add(num);
+        }
+
+        if (currentColour != "") {
+            if (currentColour.equals(lastColour)) {
+                currentStreakCount++;
+            } else {
+                streakList.add(currentStreakCount);
+                currentStreakCount = 1;
+            }
+            lastColour = currentColour;
         }
     }
 
@@ -124,6 +137,7 @@ public class Roulette {
         System.out.println("Black - " + roulette.blackList);
         System.out.println("1-18 - " + roulette.oneToEighteenList);
         System.out.println("19-36 - " + roulette.nineteenToThirtysixList);
+        System.out.println("Streaks - " + roulette.streakList);
     }
 
 }
