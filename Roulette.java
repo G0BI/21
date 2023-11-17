@@ -125,19 +125,34 @@ public class Roulette {
 
     public static void main(String[] args) {
         Roulette roulette = new Roulette();
+        int highest = 0;
+        ArrayList<Integer> highStreak = new ArrayList<>();
         // System.out.println(roulette.spin());
 
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 1000000; i++) {
             roulette.result();
         }
-        System.out.println("0 - " + roulette.zeroList);
-        System.out.println("Odd - " + roulette.oddList);
-        System.out.println("Even - " + roulette.evenList);
-        System.out.println("Red - " + roulette.redList);
-        System.out.println("Black - " + roulette.blackList);
-        System.out.println("1-18 - " + roulette.oneToEighteenList);
-        System.out.println("19-36 - " + roulette.nineteenToThirtysixList);
-        System.out.println("Streaks - " + roulette.streakList);
+
+        for (int n : roulette.streakList) {
+
+            if (n > highest) {
+                highest = n;
+            }
+
+            if (n == highest) {
+                highStreak.add(n);
+            }
+        }
+
+        System.out.println("0 - " + roulette.zeroList + "Total - " + roulette.zeroList.size());
+        System.out.println("Odd - " + roulette.oddList + "Total - " + roulette.oddList.size());
+        System.out.println("Even - " + roulette.evenList + "Total - " + roulette.evenList.size());
+        System.out.println("Red - " + roulette.redList + "Total - " + roulette.redList.size());
+        System.out.println("Black - " + roulette.blackList + "Total - " + roulette.blackList.size());
+        System.out.println("1-18 - " + roulette.oneToEighteenList + "Total - " + roulette.oneToEighteenList.size());
+        System.out.println("19-36 - " + roulette.nineteenToThirtysixList + "Total - " + roulette.nineteenToThirtysixList.size());
+        System.out.println("Streaks - " + roulette.streakList + "Highest streak - " + highest);
+        System.out.println("Number of high streaks - " + highStreak);
     }
 
 }
